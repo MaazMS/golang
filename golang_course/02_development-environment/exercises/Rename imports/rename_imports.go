@@ -1,4 +1,5 @@
 package main
+
 // ---------------------------------------------------------
 // EXERCISE: Rename imports
 //
@@ -12,11 +13,14 @@ package main
 //  hi
 // ---------------------------------------------------------
 
-import f1 "fmt"
-import f2 "fmt"
-import f3 "fmt"
+import (
+	f1 "fmt"
+	f2 "fmt"
 
-func main()  {
+	f3 "fmt"
+)
+
+func main() {
 	f1.Println("hello")
 	f2.Println("hey")
 	f3.Println("hi")

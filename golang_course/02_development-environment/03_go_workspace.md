@@ -1,38 +1,40 @@
-## GOPATH, Go Workspace, and Go Code Organization  
-1. Go requires you to organize your code in a specific way -
-By convention, all your Go code, and the code you import, must reside in a single workspace.     
-A workspace is nothing, but a directory in your file system whose path is stored in the environment variable GOPATH.  
-   
-1.  Note that, after the introduction of Go modules in Go 1.11, you’re no longer required to store your Go code in the Go workspace.   
-You can create your Go projects in any directory outside of GOPATH.    
-The following explanation of Go a workspace is given for historical reasons, and the fact that it’s still valid.    
-You can skip this section if you want.   
+## GOPATH Workspace: Legacy Reference
 
-The workspace directory contains the following subdirectories at its root   
-1. **src**: `contains Go source files`  
-   The src directory typically contains many version control repositories containing one or more Go packages.      
-   Every Go source file belongs to a package. You generally create a new subdirectory inside your repository for every separate Go package.   
-   
-```example 
-src
-    github.com
-        <github.com username>
-        folder with code for project / repo 
-        folder with code for project / repo 
-        folder with code for project / repo  
-        folder with code for project / repo  
-        ...  
-        folder with code for project / repo  
-```  
-2. **bin**: `contains the binary executables.`  
-    The Go tool builds and installs binary executables to this directory.  
-   
-3. **pkg**: `contains Go package archives (.a).`   
-   All the non-executable packages (shared libraries) are stored in this directory.   
-   You cannot run these packages directly as they are not binary files.    
-   They are typically imported and used inside other executable packages.  
+**Note**: This file provides historical context for GOPATH workspaces. For modern development, see `02_additional-setup-environment.md` and `08_go_module.md`.
 
-1. GOPATH   
-   ○ points to your go workspace  
-1. GOROOT  
-   ○ points to your binary installation of Go   
+### Historical Context
+
+Before Go modules (Go 1.11+), Go code lived inside a single workspace pointed to by the `GOPATH` environment variable. Since Go modules became the default (Go 1.16), you no longer need to keep projects under `GOPATH`.
+
+### GOPATH Workspace Structure
+
+The workspace directory contains these subdirectories:
+
+#### 1. **src** Directory
+- Contains Go source code organized by import paths
+- Structure: `src/github.com/username/project/`
+- Each repository contains one or more Go packages
+
+#### 2. **bin** Directory  
+- Contains compiled executables
+- `go install` places binaries here
+- Add `$GOPATH/bin` to PATH to run installed tools
+
+#### 3. **pkg** Directory
+- Contains compiled package archives (`.a` files)
+- Used by compiler and linker for faster builds
+- Not directly executable; imported by other packages
+
+### Key Environment Variables
+
+- **GOPATH**: Points to Go workspace (defaults to `$HOME/go`)
+- **GOROOT**: Points to Go installation (e.g., `/usr/local/go`)
+
+### Modern Recommendation
+
+For new projects, use Go modules:
+```bash
+go mod init example.com/your/module
+```
+
+This allows projects to live anywhere on your filesystem with better dependency management.
