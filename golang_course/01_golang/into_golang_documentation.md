@@ -143,7 +143,103 @@ func main() {
     fmt.Println("Hello, World!")
 }
 ```
+Go packge link https://pkg.go.dev/  
+Go library link https://pkg.go.dev/std
+##  Go Playground  
+1. Write and run Go code in the browser without installing Go or setting `GOPATH`/`GOROOT` on your computer.  
+1. Share runnable code by clicking the "Share" button; it creates a permalink that others can open to run your exact code.    
+1. The UI provides examples like:   
+```
+Hello, playground  
+Tests  
+Multiple Files  
+Display image  
+Sleep   
+clear   
+```
+1. Key sandbox limitations (important for understanding behavior):  
+   - The program runs in a sandbox: no network, no filesystem, and limited CPU/memory.  
+   - Time is deterministic: `time.Now()` returns a fixed timestamp to enable caching.  
+   - Concurrency works, but long-running or sleeping programs may be terminated.  
+   - External dependencies via modules are supported in the modern playground, but very large downloads or private modules are not.  
+1. Practical example (print, loop, and simple function):  
+```go
+package main
 
+import (
+    "fmt"
+)
+
+func double(n int) int { return n * 2 }
+
+func main() {
+    fmt.Println("Hello, playground")
+    for i := 1; i <= 3; i++ {
+        fmt.Println(i, "->", double(i))
+    }
+}
+``` 
+
+1. Multiple files: you can add more files in the left sidebar ("+" icon) and place additional package-scope declarations there, as long as they are in the same package (commonly `package main`).  
+
+Go Playground link https://go.dev/play/  
+
+##  "Idiomatic Go"    
+1. "Idiomatic Go" means writing Go the way experienced Go developers do—clear, simple, and consistent with the standard library and community practices.  
+1. Formatting is not optional: always format code with the canonical tool.  
+   - Using the CLI:  
+   ```
+   go fmt ./...  
+   ```
+   - Or directly with `gofmt` (in-place):  
+   ```
+   gofmt -w .  
+   ```
+1. Keep code simple and explicit—prefer readability over cleverness. Avoid deep nesting; use early returns.  
+1. Name things clearly: exported identifiers start with uppercase; unexported start with lowercase.  
+1. Error handling: check errors explicitly and return them; avoid swallowing errors.  
+   ```go
+   if err != nil { return err }  
+   ```
+1. Testing is first-class: put tests in `_test.go` files and run:  
+   ```
+   go test ./...  
+   ```
+1. Useful static analysis:  
+   - `go vet` finds common mistakes.  
+   - `staticcheck` (third-party) catches additional issues.  
+1. Example of idiomatic structure for a small program:  
+```go
+package main
+
+import (
+    "errors"
+    "flag"
+    "fmt"
+)
+
+func run(limit int) error {
+    if limit <= 0 {
+        return errors.New("limit must be positive")
+    }
+    for i := 1; i <= limit; i++ {
+        fmt.Println(i)
+    }
+    return nil
+}
+
+func main() {
+    // Flags are parsed in main; logic is in run for testability.
+    n := flag.Int("n", 3, "how many numbers to print")
+    flag.Parse()
+    if err := run(*n); err != nil {
+        // Print error and exit with non-zero status.
+        fmt.Println("error:", err)
+    }
+}
+```
+Go Idiomatic link https://go.dev/doc/effective_go     
+   
 ## Key Points to Remember
 
 - **Go was created at Google** by Robert Griesemer, Rob Pike, and Ken Thompson

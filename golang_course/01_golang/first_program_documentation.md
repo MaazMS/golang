@@ -103,6 +103,57 @@ func main() {
 2. It produces no output because there are no print statements
 3. The `main` function is empty, so it executes and exits immediately
 
+
+1.  Every Go source file starts with a `package` declaration.
+1. The package name usually matches the directory name. The special package name `main` is used for programs that are meant to be compiled as executables.
+1. A program’s entry point is the `main` function inside `package main`.
+1. If you use code from another package, you must `import` that package in the file that uses it.
+
+## main() Function 
+1. `func main()` is the entry point of an executable program.    
+2. It does not take arguments and does not return a value.  
+3. Go calls `main()` automatically; you never call it yourself.  
+3. Each executable (command) you build must have exactly one `package main` with a `main()` function in the build target.
+
+## init() Function   
+1. `init()` is an optional function that runs automatically to initialize a package before it is used.  
+2. It takes no arguments and returns no value.  
+3. A package may have zero or more `init()` functions (even multiple per file); all run after package-level variables are initialized and before `main()` (for the main package).  
+4. You cannot call `init()` yourself; it is invoked by the runtime in import order.   
+5. Typical use cases: register handlers, validate configuration, set up package-level state. Avoid heavy work or long-running tasks.
+
+Note: You normally do not write semicolons in Go; the lexer inserts them automatically according to simple rules.   
+Note: The program starts at `func main()`; when `main()` returns (or the process calls `os.Exit`), the program ends.
+
+## Hello World and Flow of Control  
+Flow of control:
+    1. Sequential flow (top to bottom)
+    1. Iteration (loops)
+    1. Conditionals
+
+Example:
+```go
+package main
+
+import "fmt"
+
+func init() {
+    // Runs before main.
+    fmt.Println("init: setup")
+}
+
+func main() {
+    fmt.Println("hello, world") // sequential
+    for i := 0; i < 3; i++ {    // iteration
+        if i%2 == 0 {           // conditional
+            fmt.Println(i, "even")
+        } else {
+            fmt.Println(i, "odd")
+        }
+    }
+}
+```
+
 ## Key Points to Remember
 
 - **Every Go program must have a `main` package**
