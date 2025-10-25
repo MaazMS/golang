@@ -1,0 +1,172 @@
+# Complete If-Else Statements in Go - Comprehensive Revision Notes
+
+## 1. BASIC IF STATEMENT
+### Syntax
+```go
+if condition {
+    // statements
+}
+```
+
+### Key Points
+- Executes block only if condition is true
+- No parentheses around condition
+- Opening brace { must be on same line as if
+- Condition must evaluate to boolean value
+
+### Example
+```go
+age := 18
+if age >= 18 {
+    fmt.Println("You are eligible to vote")
+}
+```
+
+## 2. IF-ELSE STATEMENT
+### Syntax
+```go
+if condition {
+    // statements if true
+} else {
+    // statements if false
+}
+```
+
+### Key Points
+- else keyword must be on same line as closing brace }
+- Only one block executes (mutually exclusive)
+- else block executes when condition is false
+- Both blocks are mutually exclusive
+
+### Example
+```go
+age := 16
+if age >= 18 {
+    fmt.Println("You are eligible to vote")
+} else {
+    fmt.Println("You are not eligible to vote yet")
+}
+```
+
+## 3. IF-ELSE IF-ELSE STATEMENT
+### Syntax
+```go
+if condition1 {
+    // statements
+} else if condition2 {
+    // statements
+} else if condition3 {
+    // statements
+} else {
+    // default statements
+}
+```
+
+### Key Points
+- Multiple conditions checked in sequence
+- Only first true condition executes
+- else if comes after if, before else
+- else serves as default case
+- Can have multiple else if statements
+- Once a condition is met, remaining conditions are not evaluated
+
+### Example
+```go
+score := 85
+if score >= 90 {
+    fmt.Println("Grade: A")
+} else if score >= 80 {
+    fmt.Println("Grade: B")
+} else if score >= 70 {
+    fmt.Println("Grade: C")
+} else {
+    fmt.Println("Grade: F")
+}
+```
+
+## 4. IF WITH ASSIGNMENT (Go Special Feature)
+### Syntax
+```go
+if variable := expression; condition {
+    // statements using variable
+} else {
+    // variable also available here
+}
+// variable NOT available here
+```
+
+### Key Points
+- Variables declared in if are only available in if/else blocks
+- Assignment and condition separated by semicolon ;
+- Common for error handling
+- Can declare multiple variables
+- Variables have limited scope
+
+### Common Patterns
+
+#### Error Handling
+```go
+if err := someFunction(); err != nil {
+    fmt.Println("Error occurred:", err)
+} else {
+    fmt.Println("Success")
+}
+```
+
+#### Map Lookup
+```go
+if value, ok := myMap[key]; ok {
+    fmt.Println("Found:", value)
+} else {
+    fmt.Println("Key not found")
+}
+```
+
+#### Type Assertion
+```go
+if str, ok := interface.(string); ok {
+    fmt.Println("String value:", str)
+} else {
+    fmt.Println("Not a string")
+}
+```
+
+#### Channel Operations
+```go
+if value, ok := <-channel; ok {
+    fmt.Println("Received:", value)
+} else {
+    fmt.Println("Channel closed")
+}
+```
+
+## 5. SYNTAX RULES (CRITICAL)
+- No parentheses around conditions
+- Opening brace { must be on same line as if/else if/else
+- else if and else must be on same line as previous closing brace }
+- Conditions must evaluate to boolean values
+- Go uses strict formatting rules for braces
+
+## 6. COMMON USAGE PATTERNS
+1. **Error Handling**: if err := function(); err != nil { }
+2. **Map Lookup**: if value, ok := map[key]; ok { }
+3. **Type Assertion**: if str, ok := interface.(string); ok { }
+4. **Channel Operations**: if value, ok := <-channel; ok { }
+5. **Function Returns**: if result, success := divide(a, b); success { }
+
+## 7. IMPORTANT NOTES
+- Variables in if assignment have limited scope (only in if/else blocks)
+- Only first true condition executes in if-else if chains
+- else block is optional but useful as default case
+- Go does not require parentheses around conditions
+- This is a fundamental control flow construct in Go
+- All conditions must evaluate to boolean values
+- The else statement is not executed if the given condition is fulfilled
+
+## 8. QUICK REFERENCE
+- Basic: if condition { }
+- With else: if condition { } else { }
+- Multiple: if { } else if { } else if { } else { }
+- With assignment: if var := expr; condition { }
+- Scope: Variables in if assignment only available in if/else blocks
+- Formatting: Braces on same line, no parentheses around conditions

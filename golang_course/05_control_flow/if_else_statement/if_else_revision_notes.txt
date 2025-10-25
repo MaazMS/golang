@@ -1,0 +1,46 @@
+# If-Else Statements in Go - Revision Notes
+
+## 1. Basic If Statement
+- Syntax: if condition { statements }
+- Executes block only if condition is true
+- No parentheses around condition
+- Opening brace { must be on same line as if
+
+## 2. If-Else Statement
+- Syntax: if condition { } else { }
+- else keyword must be on same line as closing brace }
+- Only one block executes (mutually exclusive)
+- else block executes when condition is false
+
+## 3. If-Else If-Else Statement
+- Multiple conditions checked in sequence
+- Only first true condition executes
+- else if comes after if, before else
+- else serves as default case
+- Can have multiple else if statements
+
+## 4. If with Assignment (Special Go Feature)
+- Syntax: if variable := expression; condition { }
+- Variables declared in if are only available in if/else blocks
+- Common for error handling
+- Assignment and condition separated by semicolon ;
+- Can declare multiple variables
+
+## Key Syntax Rules
+- No parentheses around conditions
+- Opening brace { on same line as if/else if/else
+- else if and else on same line as previous closing brace }
+- Conditions must evaluate to boolean values
+
+## Common Patterns
+1. Error handling: if err := function(); err != nil { }
+2. Map lookup: if value, ok := map[key]; ok { }
+3. Type assertion: if str, ok := interface.(string); ok { }
+4. Channel operations: if value, ok := <-channel; ok { }
+
+## Important Notes
+- Variables in if assignment have limited scope
+- Only first true condition executes in if-else if chains
+- else block is optional but useful as default
+- Go uses strict brace formatting rules
+- This is a fundamental control flow construct in Go
